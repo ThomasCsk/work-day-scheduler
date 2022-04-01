@@ -1,15 +1,31 @@
-var currentDayEl = document.querySelector("#currentDay");
-var containerEl = $("#container");
 
 var grabCurrentDay = function(){
-var day = "";
-day = moment().format("[Today is] MMMM Do");
-currentDayEl.innerHTML = day;
+  var day = moment().format("[Today is] MMMM Do");
+  $("#currentDay").text(day);
 }
 
+var changeColors = function(){
+  for (i = 9; i < 18; i++) {
+    var currentHour = (moment().hour());
+
+    if (i < currentHour){
+      $("textarea[data-id="+i+"]").addClass("bg-dark text-white");
+    }
+    else if(i === currentHour){
+      $("textarea[data-id="+i+"]").addClass("bg-danger");
+    }
+    else if(i <= currentHour + 2){
+      $("textarea[data-id="+i+"]").addClass("bg-warning");
+    }
+    else if(i > currentHour){
+      $("textarea[data-id="+i+"]").addClass("bg-white");
+    }
+  }
+}
 
 setInterval(function(){ //reload data every 15 minutes
-grabCurrentDay();
-},15000)
+  
+},(1000 * 60)*15)
 
 grabCurrentDay();
+changeColors();
