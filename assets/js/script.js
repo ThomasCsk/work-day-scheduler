@@ -23,9 +23,21 @@ var changeColors = function(){
   }
 }
 
-setInterval(function(){ //reload data every 15 minutes
-  
-},(1000 * 60)*15)
+var saveData = function(data){ // saves score and initials to the local storage
+  var tempData = [data, $("textarea[data-id="+data+"]").val()];
+  localStorage.setItem("time-id "+data, JSON.stringify(tempData))
+  location.reload()
+}
+
+
+$(".save-btn").on("click", function(){
+  saveData($(this).attr("id"));
+})
+
+setInterval(function(){ //reload data every 5 minutes
+  grabCurrentDay();
+  changeColors();
+},(1000 * 60) *5)
 
 grabCurrentDay();
 changeColors();
